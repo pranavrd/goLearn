@@ -7,12 +7,24 @@ import (
 	"time"
 )
 
-func Hello(name string) (string, error) {
-	if name == "" {
-		return "", errors.New("No name")
+func Hello(names []string) (map[string]string, error) {
+
+	msgs := make(map[string]string)
+	for _, name := range names {
+		msg, err := func(name string) (string, error) {
+			if name == "" {
+				return name, errors.New("No name")
+			}
+			msg := fmt.Sprintf(randomFormat(), name)
+			return msg, nil
+		}(string(name))
+
+		if err != nil {
+			return nil, err
+		}
+		msgs[string(name)] = msg
 	}
-	message := fmt.Sprintf(randomFormat(), name)
-	return message, nil
+	return msgs, nil
 }
 
 func init() {

@@ -27,6 +27,14 @@ func Hello(names []string) (map[string]string, error) {
 	return msgs, nil
 }
 
+func HelloOld(name string) (string, error) {
+	if name == "" {
+		return name, errors.New("No name")
+	}
+	msg := fmt.Sprintf(randomFormat(), name)
+	return msg, nil
+}
+
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
